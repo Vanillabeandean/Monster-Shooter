@@ -31,6 +31,7 @@ Power ups:
 -	Power up: Shoots 2 bullets at once (15 seconds or until getting another power up)
 -	Power up: invincible for 5 seconds
 -	Power up: Random (50% chance your bullet speed quadruples, 50% chance your bullet speed halves)
+Either a Power up or coin (50% chance of either spawning) should spawn between every 15-45 seconds
 <<<<Tech Spec: these would have to each be another object type, like coins, which gets picked up by the player and spanws at random intervals. Actually, basically these are just 4 other types of coins, so do the same thing you did for that. Priority: 5. Time to code: 1 hr>>>>
 
 Monsters: <<<<I would focus on making just one type of monster first, and only if you can get this to work, then try making other types of monsters. In other words, Priority: low. Time to code: 6? hours? You'll need another array of bullets that will move every frame, except these ones are checking if they overlap with the player, and removing themselves and doing the appropriate damage if so. With the other monsters shooting bullets, performance impact could potentially also be decent (lots of objects flying all at once)>>>>
@@ -43,17 +44,19 @@ o	Health – 6 bullets
 -	Ones that shoot faster bullets (bullets can be shot and broken) and fires 2 every second
 o	Health – 1 bullet
 Character can take 5 bullets/get hit by 5 monsters before the game ends (health bar in bottom right corner)
+  The character's health should be displayed on the screen in the bottom right corner
 
 The big experimental part of this program is that randomly between every 1 to 2 minutes the screen rotates 90 degrees clockwise. All of the game mechanics stay the same (for example if going downward you now use S to move down and A and D to move left and right if the game rotates 90 degrees downward). If the game rotates another 90 degrees, then the game is just reversed, meaning that the screen is now moving to the left)
+<<<<I would focus on making the game go one direction and then add this experimental system after. I'd recommend having monsters spawn only on the second half of the screen (meaning that the way the player character is moving). To do the first rotation, you'll need to change the monster spawning from the righthand side of the xpos to the bottom side of the ypos, and then if it switches again just make the monsters spawn on the left hand side of the xpos. If the game rotates one more time (going upwards), just max the monsters spawn on the top half of the ypos.>>>>
 
 
 Game design timeline
 
-Day 1: Player character on screen that can move around (lines 16-18)
+Day 1: Player character (green sprite) on screen that can move around (lines 16-18)
 Day 2-3: Get the character to be able to shoot bullets/finish up with movement (lines 16-18, 22-25)
 Day 4: Some constantly moving thing on the bottom and start on monster spawns (lines 5 and 37)
 Day 5-7: Get the monsters to spawn in randomly and to move towards the player (line 37 and throughout)
-Day 8: Monster should be able to damage character and bullets damage monsters - When monster's at 0 health they are removed, when character is 0 you lose (36-44)
-Day 9-10: Create coins and power-ups - They're functionally the same to code but just have a different function for the player when the character interacts with it. It may take a while to code what happens after something interacts with the coins/power-ups (line 11 and 6)
+Day 8: Monster should be able to damage character and bullets damage monsters - When monster's at 0 health they are removed, when character is 0 you lose (36-44, 46-47).
+Day 9-10: Create coins and power-ups - They're functionally the same to code but just have a different function for the player when the character interacts with it. It may take a while to code what happens after something interacts with the coins/power-ups (line 6, 11, 29-34)
 Day 11-12: Work on the experimental part of the game (lines 45).
-Days 13-15 (optional): Add different types of monsters, add skins, add
+Days 13-15 (optional): Add different types of monsters, add skins, add a pause button
