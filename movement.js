@@ -58,10 +58,27 @@ function createBullet(){
   }
 }
 
+function moveBullet (){
+  if (bullet != false){
+  bullet.x += 1;
+  }
+}
+
 function shootBullet (){
   //If the mouse button is pressed down
-  //Shoot bullet
-  //Bullet appears next to Character
+  if (keyPresses.e){
+//Bullet appears next to Character
+    createBullet();
+  }
+  moveBullet ();
+
+  //Move bullet
+
+function drawBullet (){
+
+}
+
+
   //Bullet begins to travel in direction of click
 }
 
