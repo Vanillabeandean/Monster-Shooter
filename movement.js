@@ -44,6 +44,28 @@ function drawFrame(frameX, frameY, canvasX, canvasY) {
                 canvasX, canvasY, SCALED_WIDTH, SCALED_HEIGHT);
 }
 
+let bullet = false;
+
+function createBullet(){
+  if (bullet == false){
+    bullet = {
+      x : 0,
+      y : 0,
+      Image : 0,
+      angle : 0,
+      size : 0
+    }
+  }
+}
+
+function shootBullet (){
+  //If the mouse button is pressed down
+  //Shoot bullet
+  //Bullet appears next to Character
+  //Bullet begins to travel in direction of click
+}
+
+
 loadImage();
 
 function gameLoop() {
