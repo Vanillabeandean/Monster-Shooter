@@ -54,8 +54,8 @@ Game design timeline
 
 Day 1: Player character (green sprite) on screen that can move around (lines 16-18)
 Day 2-3: Get the character to be able to shoot bullets/finish up with movement (lines 16-18, 22-25)
-Day 4: Some constantly moving thing on the bottom and start on monster spawns (lines 5 and 37)
-Day 5-7: Get the monsters to spawn in randomly and to move towards the player (line 37 and throughout)
+Day 4-5: Some constantly moving thing on the bottom and start on monster spawns (lines 5 and 37)
+Day 6-7: Get the monsters to spawn in randomly and to move towards the player (line 37 and throughout)
 Day 8: Monster should be able to damage character and bullets damage monsters - When monster's at 0 health they are removed, when character is 0 you lose (36-44, 46-47).
 Day 9-10: Create coins and power-ups - They're functionally the same to code but just have a different function for the player when the character interacts with it. It may take a while to code what happens after something interacts with the coins/power-ups (line 6, 11, 29-34)
 Day 11-12: Work on the experimental part of the game (lines 45).

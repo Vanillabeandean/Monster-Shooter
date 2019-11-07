@@ -49,8 +49,8 @@ let bullet = false;
 function createBullet(){
   if (bullet == false){
     bullet = {
-      x : 0,
-      y : 0,
+      x : positionX,
+      y : positionY,
       Image : 0,
       angle : 0,
       size : 0
@@ -59,13 +59,13 @@ function createBullet(){
 }
 
 function moveBullet (){
-  if (bullet != false){
+  if (bullet != false && bullet.x <500){
   bullet.x += 1;
   }
 }
 
 function shootBullet (){
-  //If the mouse button is pressed down
+  //If the e key button is pressed down
   if (keyPresses.e){
 //Bullet appears next to Character
     createBullet();
@@ -73,10 +73,14 @@ function shootBullet (){
   moveBullet ();
 
   //Move bullet
-
-function drawBullet (){
-
 }
+
+function drawBullet (context){
+  if (bullet != false){
+  context.fillRect (bullet.x, bullet.y ,10, 10);
+}
+
+
 
 
   //Bullet begins to travel in direction of click
@@ -123,6 +127,9 @@ function gameLoop() {
 
   drawFrame(CYCLE_LOOP[currentLoopIndex], currentDirection, positionX, positionY);
   window.requestAnimationFrame(gameLoop);
+  shootBullet();
+  drawBullet(ctx);
+
 }
 
 function moveCharacter(deltaX, deltaY, direction) {
