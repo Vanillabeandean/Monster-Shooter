@@ -9,7 +9,7 @@ const FACING_UP = 1;
 const FACING_LEFT = 2;
 const FACING_RIGHT = 3;
 const FRAME_LIMIT = 12;
-const MOVEMENT_SPEED = 1;
+const MOVEMENT_SPEED = .5;
 
 let canvas = document.querySelector('canvas');
 let ctx = canvas.getContext('2d');
@@ -59,8 +59,11 @@ function createBullet(){
 }
 
 function moveBullet (){
-  if (bullet != false && bullet.x <500){
+  if (bullet != false){
   bullet.x += 1;
+  }
+  if (bullet.x > canvas.width){
+    bullet = false;
   }
 }
 
@@ -77,7 +80,7 @@ function shootBullet (){
 
 function drawBullet (context){
   if (bullet != false){
-  context.fillRect (bullet.x, bullet.y ,10, 10);
+  context.fillRect (bullet.x, bullet.y ,5, 5);
 }
 
 
