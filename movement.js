@@ -45,48 +45,77 @@ function drawFrame(frameX, frameY, canvasX, canvasY) {
 }
 
 let bullet = false;
+let monster = false;
+function createMonster(){
+  if (monster == false)
+  monster = {
+    x : ((Math.random() * 50) + 200),
+    y : ((Math.random() * 100) + 25),
+  }
+}
 
-function createBullet(){
-  if (bullet == false){
-    bullet = {
-      x : positionX,
-      y : positionY,
-      Image : 0,
-      angle : 0,
-      size : 0
+function moveMonster(){
+  if (monster != false){
+    monster.x -= .5;
+  }
+  if ((monster.x < positionX + 5) &&
+  (monster.x > positionX -5) &&
+  (monster.y < positionY + 5) &&
+  (monster.y > positionY -5)){
+    monster = false;
+  }
+    if (Math.round(monster.x) < 0){
+      monster = false;
+    }
+}
+
+function monsterMaker (){
+  if (monster == false){
+  createMonster();
+}
+  moveMonster();
+}
+
+function drawMonster (context){
+  if (monster != false){
+  context.fillRect (monster.x, monster.y ,20, 20);
+}
+}
+
+  function createBullet(){
+    if (bullet == false){
+      bullet = {
+        x : positionX,
+        y : positionY,
+        Image : 0,
+        angle : 0,
+        size : 0
+      }
     }
   }
-}
 
-function moveBullet (){
-  if (bullet != false){
-  bullet.x += 1;
-  }
-  if (bullet.x > canvas.width){
-    bullet = false;
-  }
-}
 
+
+  function moveBullet (){
+    if (bullet != false){
+    bullet.x += 1;
+    }
+    if (bullet.x > canvas.width){
+      bullet = false;
+    }
+  }
 function shootBullet (){
   //If the e key button is pressed down
   if (keyPresses.e){
-//Bullet appears next to Character
     createBullet();
   }
   moveBullet ();
-
-  //Move bullet
 }
 
 function drawBullet (context){
   if (bullet != false){
   context.fillRect (bullet.x, bullet.y ,5, 5);
-}
-
-
-
-
-  //Bullet begins to travel in direction of click
+  }
 }
 
 
@@ -132,6 +161,8 @@ function gameLoop() {
   window.requestAnimationFrame(gameLoop);
   shootBullet();
   drawBullet(ctx);
+  monsterMaker();
+  drawMonster(ctx);
 
 }
 
