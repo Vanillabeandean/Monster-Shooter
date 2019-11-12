@@ -58,10 +58,10 @@ function moveMonster(){
   if (monster != false){
     monster.x -= .5;
   }
-  if ((monster.x < positionX + 5) &&
-  (monster.x > positionX -5) &&
-  (monster.y < positionY + 5) &&
-  (monster.y > positionY -5)){
+  if ((monster.x < positionX + 15) &&
+  (monster.x > positionX -15) &&
+  (monster.y < positionY + 15) &&
+  (monster.y > positionY -15)){
     monster = false;
   }
     if (Math.round(monster.x) < 0){
@@ -100,7 +100,8 @@ function drawMonster (context){
     if (bullet != false){
     bullet.x += 1;
     }
-    if (bullet.x > canvas.width){
+    if (bullet.x > canvas.width)
+    {
       bullet = false;
     }
   }
