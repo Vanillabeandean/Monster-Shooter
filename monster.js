@@ -1,34 +1,24 @@
 const monsterSpeed = 0.5;
 
-function Monster(xPos, yPos, width, height, xVel) {
+function Monster(position, velocity, width, height, image) {
   this.active = true;
-  this.x = xPos;
-  this.y = yPos;
-  this.w = width;
-  this.h = height;
-  this.vx = 0;
-  this.vy = 0;
-  this.color = "#000";
-
-  switch (direction) {
-    case up: vy = -(Player.speed + bulletSpeed); break;
-    case down: vy = (Player.speed + bulletSpeed); break;
-    case left: vx -(Player.speed + bulletSpeed); break;
-    case right: vx = (Player.speed + bulletSpeed); break;
-  }
+  this.position = position;
+  this.velocity = velocity;
+  this.width = width;
+  this.height = height;
+  this.image = image;
 
   this.inBounds = function() {
-    return (this.x >= 0) && (this.x <= Game.canvas.width) && (this.y >= 0) && (this.y <= Game.canvas.height);
+    return (this.position.x >= 0) && (this.position.x <= Game.canvas.width) && (this.position.y >= 0) && (this.position.y <= Game.canvas.height);
   };
 
   this.draw = function(ctx) {
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, this.w, this.h);
+    ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
   };
 
   this.update = function() {
-    this.x += this.vx;
-    this.y += this.vy;
+    this.position.x += this.velocity.x;
+    this.position.y += this.velocity.y;
     this.active = this.active && this.inBounds();
   };
 }

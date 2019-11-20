@@ -1,35 +1,33 @@
 
 const bulletSpeed = 5;
 
-function Bullet(xPosition, yPosition, direction) {
+function Bullet(position, direction) {
   this.active = true;
-  this.x = xPosition;
-  this.y = yPosition;
-  this.w = 1;
-  this.h = 1;
-  this.vx = 0;
-  this.vy = 0;
+  this.position = position;
+  this.velocity = new Vector(0,0);
+  this.width = 1;
+  this.height = 1;
   this.color = "#000";
 
   switch (direction) {
-    case up: vy = -(Player.speed + bulletSpeed); break;
-    case down: vy = (Player.speed + bulletSpeed); break;
-    case left: vx -(Player.speed + bulletSpeed); break;
-    case right: vx = (Player.speed + bulletSpeed); break;
+    case up: this.v.y = -(Player.speed + bulletSpeed); break;
+    case down: this.v.y = (Player.speed + bulletSpeed); break;
+    case left: this.v.x = -(Player.speed + bulletSpeed); break;
+    case right: this.v.x = (Player.speed + bulletSpeed); break;
   }
 
   this.inBounds = function() {
-    return (this.x >= 0) && (this.x <= Game.canvas.width) && (this.y >= 0) && (this.y <= Game.canvas.height);
+    return (this.position.x >= 0) && (this.position.x <= Game.canvas.width) && (this.position.y >= 0) && (this.position.y <= Game.canvas.height);
   };
 
   this.draw = function(ctx) {
     ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, this.w, this.h);
+    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   };
 
   this.update = function() {
-    this.x += this.vx;
-    this.y += this.vy;
+    this.position.x += this.velocity.x;
+    this.position.y += this.velocity.y;
     this.active = this.active && this.inBounds();
   };
 }

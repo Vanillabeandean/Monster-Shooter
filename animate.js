@@ -1,6 +1,7 @@
 
 function keyboardInput() {
   Player.speed = 0.5;
+
   if (keyPresses.KeyW) {
     Player.direction = up;
   } else if (keyPresses.KeyS) {
@@ -12,16 +13,13 @@ function keyboardInput() {
   } else {
     Player.speed = 0;
   }
-  if (keyPresses.Space) {
-    Game.bullets.push(new Bullet(Player.midX(), Player.midY(), Player.direction));
-  }
-}
 
-function removeElement(array, i) {
-  var temp = array[array.length - 1];
-  array[array.length - 1] = array[i];
-  array[i] = temp;
-  array.pop();
+  if (keyPresses.Space) {
+    spacePressed = true;
+  } else if (spacePressed) {
+    Game.bullets.push(new Bullet(Player.midX(), Player.midY(), Player.direction));
+    spacePressed = false;
+  }
 }
 
 function playerCollisions() {
@@ -57,37 +55,23 @@ function drawMonsters(ctx) {
 }
 
 function main() {
-
   Game.context.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
+  if (Game.active) {
+    keyboardInput();
 
-  keyboardInput();
+    bulletCollisions();
+    playerCollisions();
 
-  bulletCollisions();
-  playerCollisions();
+    updateBullets();
+    updateMonsters();
+    Player.update();
 
-  updateBullets();
-  updateMonsters();
-  Player.update();
-
-  Player.draw(Game.context);
-  drawMonsters(Game.context);
-  drawBullets(Game.context);
-
+    Player.draw(Game.context);
+    drawMonsters(Game.context);
+    drawBullets(Game.context);
+  }
   window.requestAnimationFrame(main);
 }
-
-function loadGame() {
-  monsterImage.src = 'monster.png';
-  playerImage.src = 'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png';
-  var d = document;
-  playerImage.onload = function() {
-    Game.canvas = d.getElementById('mainCanvas');
-    Game.context = Game.canvas.getContext('2d');
-    window.requestAnimationFrame(main);
-  };
-}
-
-loadGame();
 
 /*
 
