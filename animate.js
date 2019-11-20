@@ -22,12 +22,32 @@ function keyboardInput() {
   }
 }
 
-function playerCollisions() {
+function collision(thing, monster) {
+  var xOverlap = ((thing.position.x >= monster.position.x) && (thing.position.x <= monster.position.x + monster.width))
+                || ((thing.position.x + thing.width >= monster.position.x) && (thing.position.x + thing.width <= monster.position.x + monster.width));
+  var xOverlap = ((thing.position.y >= monster.position.y) && (thing.position.y <= monster.position.y + monster.height))
+                || ((thing.position.y + thing.height >= monster.position.y) && (thing.position.y + thing.height <= monster.position.y + monster.height));
+  return xOverlap && yOverlap;
+}
 
+function playerCollisions() {
+  for (var i = 0; i < Game.monsters.length; i++) {
+    if (collision(Player, Game.monsters[i])) {
+      Game.monsters[i].active = false;
+      Game.active = false;
+    }
+  }
 }
 
 function bulletCollisions() {
-
+  for (var i = 0; i < Game.monsters.length; i++) {
+    for (var j = 0; j < Game.bullets.length; j++) {
+      if (collision(Game.bullets[j], Game.monsters[i])) {
+        Game.bullets[j].active = false;
+        Game.monsters[i].active = false;
+      }
+    }
+  }
 }
 
 function updateBullets() {
@@ -41,7 +61,13 @@ function updateBullets() {
 }
 
 function updateMonsters() {
-
+  for (var i = 0; i < Game.monsters.length; i++) {
+    if (Game.monsters[i].active) {
+      Game.monsters[i].update();
+    } else {
+      removeElement(Game.monsters, i);
+    }
+  }
 }
 
 function drawBullets(ctx) {
@@ -51,12 +77,20 @@ function drawBullets(ctx) {
 }
 
 function drawMonsters(ctx) {
+  for (var i = 0; i < Game.monsters.length; i++) {
+    Game.monsters[i].draw(ctx);
+  }
+}
 
+function spawnMonsters() {
+  //function that creates monsters randomly at certain times
 }
 
 function main() {
   Game.context.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
   if (Game.active) {
+    spawnMonsters();
+
     keyboardInput();
 
     bulletCollisions();
