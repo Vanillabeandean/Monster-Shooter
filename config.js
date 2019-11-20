@@ -7,8 +7,7 @@ var keyPresses = {};
 var spacePressed = false;
 
 var playerImage = new Image();
-var monsterImages = [];
-monsterImages.push(new Image());
+var monsterImages = [new Image()];
 
 monsterImages[0].src = 'monster.png';
 playerImage.src = 'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png';
