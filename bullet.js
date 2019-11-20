@@ -1,70 +1,35 @@
-// var playerBullets = [];
-//
-//
-//
-//
-// function Bullet(I) {
-//   I.active = true;
-//
-//   I.xVelocity = 0;
-//   I.yVelocity = -I.speed;
-//   I.width = 3;
-//   I.height = 3;
-//   I.color = "#000";
-//
-//   I.inBounds = function() {
-//     return I.x >= 0 && I.x <= CANVAS_WIDTH &&
-//       I.y >= 0 && I.y <= CANVAS_HEIGHT;
-//   };
-//
-//   I.draw = function() {
-//     canvas.fillStyle = this.color;
-//     canvas.fillRect(this.x, this.y, this.width, this.height);
-//   };
-//
-//   I.update = function() {
-//     I.x += I.xVelocity;
-//     I.y += I.yVelocity;
-//
-//     I.active = I.active && I.inBounds();
-//   };
-//
-//   return I;
-// }
-//
-//
-// player.shoot = function() {
-//   var bulletPosition = this.midpoint();
-//
-//   playerBullets.push(Bullet({
-//     speed: 5,
-//     x: bulletPosition.x,
-//     y: bulletPosition.y
-//   }));
-// };
-//
-// player.midpoint = function() {
-//   return {
-//     x: this.x + this.width/2,
-//     y: this.y + this.height/2
-//   };
-// };
-//
-//
-// function update() {
-//   ...
-//   playerBullets.forEach(function(bullet) {
-//     bullet.update();
-//   });
-//
-//   playerBullets = playerBullets.filter(function(bullet) {
-//     return bullet.active;
-//   });
-// }
-//
-// function draw() {
-//   ...
-//   playerBullets.forEach(function(bullet) {
-//     bullet.draw();
-//   });
-// }
+
+const bulletSpeed = 5;
+
+function Bullet(xPosition, yPosition, direction) {
+  this.active = true;
+  this.x = xPosition;
+  this.y = yPosition;
+  this.w = 1;
+  this.h = 1;
+  this.vx = 0;
+  this.vy = 0;
+  this.color = "#000";
+
+  switch (direction) {
+    case up: vy = -bulletSpeed; break;
+    case down: vy = bulletSpeed; break;
+    case left: vx -bulletSpeed; break;
+    case right: vx = bulletSpeed; break;
+  }
+
+  this.inBounds = function() {
+    return (this.x >= 0) && (this.x <= Game.canvas.width) && (this.y >= 0) && (this.y <= Game.canvas.height);
+  };
+
+  this.draw = function(ctx) {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.w, this.h);
+  };
+
+  this.update = function() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.active = this.active && this.inBounds();
+  };
+}
