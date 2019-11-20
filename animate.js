@@ -1,5 +1,5 @@
 
-function playerInput() {
+function keyboardInput() {
   Player.speed = 0.5;
   if (keyPresses.KeyW) {
     Player.direction = up;
@@ -12,9 +12,47 @@ function playerInput() {
   } else {
     Player.speed = 0;
   }
+  if (keyPresses.Space) {
+    Game.bullets.push(new Bullet(Player.midX(), Player.midY(), Player.direction));
+  }
 }
 
-function gunInput() {
+function removeElement(array, i) {
+  var temp = array[array.length - 1];
+  array[array.length - 1] = array[i];
+  array[i] = temp;
+  array.pop();
+}
+
+function playerCollisions() {
+
+}
+
+function bulletCollisions() {
+
+}
+
+function updateBullets() {
+  for (var i = 0; i < Game.bullets.length; i++) {
+    if (Game.bullets[i].active) {
+      Game.bullets[i].update();
+    } else {
+      removeElement(Game.bullets, i);
+    }
+  }
+}
+
+function updateMonsters() {
+
+}
+
+function drawBullets(ctx) {
+  for (var i = 0; i < Game.bullets.length; i++) {
+    Game.bullets[i].draw(ctx);
+  }
+}
+
+function drawMonsters(ctx) {
 
 }
 
@@ -22,31 +60,30 @@ function main() {
 
   Game.context.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
 
-  playerInput();
-  gunInput();
+  keyboardInput();
 
+  bulletCollisions();
+  playerCollisions();
+
+  updateBullets();
+  updateMonsters();
   Player.update();
+
   Player.draw(Game.context);
+  drawMonsters(Game.context);
+  drawBullets(Game.context);
 
-
-  /*shootBullet();
-  drawBullet(ctx);
-  monsterMaker();
-  drawMonster(ctx);*/
-  window.requestAnimationFrame(main);
-}
-
-function startGame() {
-  Game.canvas = document.querySelector('mainCanvas');
-  Game.context = Game.canvas.getContext('2d');
   window.requestAnimationFrame(main);
 }
 
 function loadGame() {
   monsterImage.src = 'monster.png';
   playerImage.src = 'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png';
+  var d = document;
   playerImage.onload = function() {
-    startGame();
+    Game.canvas = d.getElementById('mainCanvas');
+    Game.context = Game.canvas.getContext('2d');
+    window.requestAnimationFrame(main);
   };
 }
 

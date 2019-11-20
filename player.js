@@ -14,6 +14,14 @@ var Player = {
   speed : 0,
   direction : 0,
 
+  midX : function() {
+    return this.x + this.scaledWidth()/2;
+  },
+
+  midY : function() {
+    return this.y + this.scaledHeight()/2;
+  },
+
   draw : function(ctx) {
     ctx.drawImage((this.image), (this.cycleLoop[this.loopIndex] * this.width), (this.direction*this.height), (this.width, this.height), (this.x), (this.y), (this.scaledWidth()), (this.scaledHeight()));
   },

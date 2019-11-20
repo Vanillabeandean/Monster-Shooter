@@ -12,10 +12,10 @@ function Bullet(xPosition, yPosition, direction) {
   this.color = "#000";
 
   switch (direction) {
-    case up: vy = -bulletSpeed; break;
-    case down: vy = bulletSpeed; break;
-    case left: vx -bulletSpeed; break;
-    case right: vx = bulletSpeed; break;
+    case up: vy = -(Player.speed + bulletSpeed); break;
+    case down: vy = (Player.speed + bulletSpeed); break;
+    case left: vx -(Player.speed + bulletSpeed); break;
+    case right: vx = (Player.speed + bulletSpeed); break;
   }
 
   this.inBounds = function() {
