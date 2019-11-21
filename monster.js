@@ -8,6 +8,8 @@ function Monster(position, velocity, width, height, image) {
   this.height = height;
   this.image = image;
 
+  this.health = 100;
+
   this.inBounds = function() {
     return (this.position.x >= 0) && (this.position.x <= Game.canvas.width) && (this.position.y >= 0) && (this.position.y <= Game.canvas.height);
   };

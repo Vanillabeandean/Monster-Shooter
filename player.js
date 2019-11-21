@@ -14,6 +14,7 @@ var Player = {
   frameLimit : 6,
   frameCount : 0,
   direction : 0,
+  health : 100,
 
   midPoint : function() {
     return new Vector(this.position.x + this.scaledWidth()/2, this.position.y + this.scaledHeight()/2);
