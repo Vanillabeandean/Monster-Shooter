@@ -1,4 +1,4 @@
-const monsterSpeed = 0.5;
+
 
 function Monster(position, velocity, width, height, image) {
   this.active = true;

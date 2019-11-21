@@ -9,8 +9,9 @@ var spacePressed = false;
 var playerImage = new Image();
 var monsterImages = [new Image()];
 
-monsterImages[0].src = 'monster.png';
-playerImage.src = 'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png';
+const playerSpeed = 0.5;
+const monsterSpeed = 0.5;
+const bulletSpeed = 5;
 
 var Game = {
   active : false,
@@ -52,5 +53,10 @@ function startGame() {
   Game.context = Game.canvas.getContext('2d');
   Game.active = true;
 
-  window.requestAnimationFrame(main);
+  monsterImages[0].src = 'monster.png';
+  playerImage.src = 'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png';
+  playerImage.onload = function() {
+    window.requestAnimationFrame(main);
+  }
+  //window.requestAnimationFrame(main);
 }

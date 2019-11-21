@@ -1,17 +1,24 @@
 
 function keyboardInput() {
-  Player.speed = 0.5;
-
   if (keyPresses.KeyW) {
     Player.direction = up;
+    Player.velocity.y = -playerSpeed;
+    Player.velocity.x = 0;
   } else if (keyPresses.KeyS) {
     Player.direction = down;
+    Player.velocity.y = playerSpeed;
+    Player.velocity.x = 0;
   } else if (keyPresses.KeyA) {
     Player.direction = left;
+    Player.velocity.x = -playerSpeed;
+    Player.velocity.y = 0;
   } else if (keyPresses.KeyD) {
     Player.direction = right;
+    Player.velocity.x = playerSpeed;
+    Player.velocity.y = 0;
   } else {
-    Player.speed = 0;
+    Player.velocity.x = 0;
+    Player.velocity.y = 0;
   }
 
   if (keyPresses.Space) {
