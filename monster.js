@@ -1,4 +1,4 @@
-const monsterSpeed = 0.5;
+
 
 function Monster(position, velocity, width, height, image) {
   this.active = true;
@@ -7,6 +7,8 @@ function Monster(position, velocity, width, height, image) {
   this.width = width;
   this.height = height;
   this.image = image;
+
+  this.health = 100;
 
   this.inBounds = function() {
     return (this.position.x >= 0) && (this.position.x <= Game.canvas.width) && (this.position.y >= 0) && (this.position.y <= Game.canvas.height);
@@ -17,8 +19,7 @@ function Monster(position, velocity, width, height, image) {
   };
 
   this.update = function() {
-    this.position.x += this.velocity.x;
-    this.position.y += this.velocity.y;
+    this.position.addVector(this.velocity);
     this.active = this.active && this.inBounds();
   };
 }

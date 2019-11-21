@@ -1,8 +1,9 @@
-const playerSpeed = 0.5;
+
 
 var Player = {
   image : playerImage,
   position : new Vector(0,0),
+  velocity : new Vector(0,0),
   scale : 1,
   width : 16,
   height : 18,
@@ -10,29 +11,21 @@ var Player = {
   scaledHeight : function() { return (this.scale * this.height); },
   cycleLoop : [0,1,0,2],
   loopIndex : 0,
-  frameLimit : 12,
+  frameLimit : 6,
   frameCount : 0,
   direction : 0,
+  health : 100,
 
-  midX : function() {
-    return this.x + this.scaledWidth()/2;
-  },
-
-  midY : function() {
-    return this.y + this.scaledHeight()/2;
+  midPoint : function() {
+    return new Vector(this.position.x + this.scaledWidth()/2, this.position.y + this.scaledHeight()/2);
   },
 
   draw : function(ctx) {
-    ctx.drawImage((this.image), (this.cycleLoop[this.loopIndex] * this.width), (this.direction*this.height), this.width, this.height, this.x, this.y, this.scaledWidth(), this.scaledHeight());
+    ctx.drawImage((this.image), (this.cycleLoop[this.loopIndex] * this.width), (this.direction*this.height), this.width, this.height, this.position.x, this.position.y, this.scaledWidth(), this.scaledHeight());
   },
 
   update : function() {
-    switch (this.direction) {
-      case up : this.position.y -= playerSpeed; break;
-      case down : this.position.y += playerSpeed; break;
-      case left : this.position.x -= playerSpeed; break;
-      case right : this.position.x += playerSpeed; break;
-    }
+    this.position.addVector(this.velocity);
 
     if (this.position.y <= 0) {
       this.position.y = 0;
@@ -46,7 +39,7 @@ var Player = {
       this.position.x = Game.canvas.width - this.scaledWidth();
     }
 
-    if (this.speed != 0) {
+    if (this.velocity.x != 0 || this.velocity.y != 0) {
       this.frameCount++;
       if (this.frameCount >= this.frameLimit) {
         this.frameCount = 0;

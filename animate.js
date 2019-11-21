@@ -1,23 +1,25 @@
 
 function keyboardInput() {
-  Player.speed = 0.5;
-
   if (keyPresses.KeyW) {
     Player.direction = up;
+    Player.velocity.set(0, -playerSpeed);
   } else if (keyPresses.KeyS) {
     Player.direction = down;
+    Player.velocity.set(0, playerSpeed);
   } else if (keyPresses.KeyA) {
     Player.direction = left;
+    Player.velocity.set(-playerSpeed, 0);
   } else if (keyPresses.KeyD) {
     Player.direction = right;
+    Player.velocity.set(playerSpeed, 0);
   } else {
-    Player.speed = 0;
+    Player.velocity.set(0, 0);
   }
 
   if (keyPresses.Space) {
     spacePressed = true;
   } else if (spacePressed) {
-    Game.bullets.push(new Bullet(Player.midX(), Player.midY(), Player.direction));
+    Game.bullets.push(new Bullet(Player.midPoint(), Player.direction));
     spacePressed = false;
   }
 }
@@ -25,7 +27,7 @@ function keyboardInput() {
 function collision(thing, monster) {
   var xOverlap = ((thing.position.x >= monster.position.x) && (thing.position.x <= monster.position.x + monster.width))
                 || ((thing.position.x + thing.width >= monster.position.x) && (thing.position.x + thing.width <= monster.position.x + monster.width));
-  var xOverlap = ((thing.position.y >= monster.position.y) && (thing.position.y <= monster.position.y + monster.height))
+  var yOverlap = ((thing.position.y >= monster.position.y) && (thing.position.y <= monster.position.y + monster.height))
                 || ((thing.position.y + thing.height >= monster.position.y) && (thing.position.y + thing.height <= monster.position.y + monster.height));
   return xOverlap && yOverlap;
 }
@@ -84,6 +86,11 @@ function drawMonsters(ctx) {
 
 function spawnMonsters() {
   //function that creates monsters randomly at certain times
+  if (Game.monsters.length == 0) {
+    var newPos = new Vector(Game.canvas.width, 50);
+    var newVel = new Vector(-0.5, 0);
+    Game.monsters.push(new Monster(newPos, newVel, 45, 20, monsterImages[0]));
+  }
 }
 
 function main() {

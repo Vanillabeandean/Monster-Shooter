@@ -7,11 +7,11 @@ var keyPresses = {};
 var spacePressed = false;
 
 var playerImage = new Image();
-var monsterImages = [];
-monsterImages.push(new Image());
+var monsterImages = [new Image()];
 
-monsterImages[0].src = 'monster.png';
-playerImage.src = 'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png';
+const playerSpeed = 0.5;
+const monsterSpeed = 0.5;
+const bulletSpeed = 5;
 
 var Game = {
   active : false,
@@ -36,6 +36,25 @@ function Vector (xValue, yValue) {
   this.y = yValue;
   this.norm = function() { return Math.sqrt(this.x*this.x + this.y*this.y); };
   this.angle = function() { return Math.arctan(this.y/this.x); };
+
+  this.addVector = function(vector) {
+    this.x += vector.x;
+    this.y += vector.y;
+  };
+
+  this.add = function(xval, yval) {
+    this.x += xval;
+    this.y += yval;
+  };
+
+  this.set = function(xval, yval) {
+    this.x = xval;
+    this.y = yval;
+  };
+
+  this.clone = function() {
+    return new Vector(this.x, this.y);
+  }
 }
 
 function removeElement(array, i) {
@@ -53,5 +72,10 @@ function startGame() {
   Game.context = Game.canvas.getContext('2d');
   Game.active = true;
 
-  window.requestAnimationFrame(main);
+  monsterImages[0].src = 'monster.png';
+  playerImage.src = 'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png';
+  playerImage.onload = function() {
+    window.requestAnimationFrame(main);
+  }
+  //window.requestAnimationFrame(main);
 }
