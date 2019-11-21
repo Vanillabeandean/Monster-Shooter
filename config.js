@@ -37,7 +37,7 @@ function Vector (xValue, yValue) {
   this.norm = function() { return Math.sqrt(this.x*this.x + this.y*this.y); };
   this.angle = function() { return Math.arctan(this.y/this.x); };
 
-  this.add = function(vector) {
+  this.addVector = function(vector) {
     this.x += vector.x;
     this.y += vector.y;
   };

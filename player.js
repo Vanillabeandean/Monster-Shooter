@@ -24,8 +24,7 @@ var Player = {
   },
 
   update : function() {
-    this.position.x += this.velocity.x;
-    this.position.y += this.velocity.y;
+    this.position.addVector(this.velocity);
 
     if (this.position.y <= 0) {
       this.position.y = 0;
