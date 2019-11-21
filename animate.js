@@ -2,29 +2,24 @@
 function keyboardInput() {
   if (keyPresses.KeyW) {
     Player.direction = up;
-    Player.velocity.y = -playerSpeed;
-    Player.velocity.x = 0;
+    Player.velocity.set(0, -playerSpeed);
   } else if (keyPresses.KeyS) {
     Player.direction = down;
-    Player.velocity.y = playerSpeed;
-    Player.velocity.x = 0;
+    Player.velocity.set(0, playerSpeed);
   } else if (keyPresses.KeyA) {
     Player.direction = left;
-    Player.velocity.x = -playerSpeed;
-    Player.velocity.y = 0;
+    Player.velocity.set(-playerSpeed, 0);
   } else if (keyPresses.KeyD) {
     Player.direction = right;
-    Player.velocity.x = playerSpeed;
-    Player.velocity.y = 0;
+    Player.velocity.set(playerSpeed, 0);
   } else {
-    Player.velocity.x = 0;
-    Player.velocity.y = 0;
+    Player.velocity.set(0, 0);
   }
 
   if (keyPresses.Space) {
     spacePressed = true;
   } else if (spacePressed) {
-    Game.bullets.push(new Bullet(Player.midX(), Player.midY(), Player.direction));
+    Game.bullets.push(new Bullet(Player.midPoint(), Player.direction));
     spacePressed = false;
   }
 }

@@ -15,12 +15,8 @@ var Player = {
   frameCount : 0,
   direction : 0,
 
-  midX : function() {
-    return this.position.x + this.scaledWidth()/2;
-  },
-
-  midY : function() {
-    return this.position.y + this.scaledHeight()/2;
+  midPoint : function() {
+    return new Vector(this.position.x + this.scaledWidth()/2, this.position.y + this.scaledHeight()/2);
   },
 
   draw : function(ctx) {

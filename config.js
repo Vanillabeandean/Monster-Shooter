@@ -36,6 +36,25 @@ function Vector (xValue, yValue) {
   this.y = yValue;
   this.norm = function() { return Math.sqrt(this.x*this.x + this.y*this.y); };
   this.angle = function() { return Math.arctan(this.y/this.x); };
+
+  this.add = function(vector) {
+    this.x += vector.x;
+    this.y += vector.y;
+  };
+
+  this.add = function(xval, yval) {
+    this.x += xval;
+    this.y += yval;
+  };
+
+  this.set = function(xval, yval) {
+    this.x = xval;
+    this.y = yval;
+  };
+
+  this.clone = function() {
+    return new Vector(this.x, this.y);
+  }
 }
 
 function removeElement(array, i) {

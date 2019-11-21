@@ -1,19 +1,18 @@
 
-const bulletSpeed = 5;
-
 function Bullet(position, direction) {
+
   this.active = true;
   this.position = position;
-  this.velocity = new Vector(0,0);
+  this.velocity = Player.velocity.clone();
   this.width = 1;
   this.height = 1;
   this.color = "#000";
 
   switch (direction) {
-    case up: this.velocity.y = Player.velocity.y - bulletSpeed; break;
-    case down: this.velocity.y = Player.velocity.y + bulletSpeed; break;
-    case left: this.velocity.x = Player.velocity.x - bulletSpeed; break;
-    case right: this.velocity.x = Player.velocity.x + bulletSpeed; break;
+      case up: this.velocity.add(0, -bulletSpeed); break;
+      case down: this.velocity.add(0, bulletSpeed); break;
+      case left: this.velocity.add(-bulletSpeed, 0); break;
+      case right: this.velocity.add(bulletSpeed, 0); break;
   }
 
   this.inBounds = function() {
