@@ -86,8 +86,11 @@ function drawMonsters(ctx) {
 
 function spawnMonsters() {
   //function that creates monsters randomly at certain times
+  var randomNumberX = (Math.random ()* 184) + 100;
+  var randomNumberY = (Math.random ()* 100) + 20;
+
   if (Game.monsters.length == 0) {
-    var newPos = new Vector(Game.canvas.width, 50);
+    var newPos = new Vector(randomNumberX, randomNumberY);
     var newVel = new Vector(-0.5, 0);
     Game.monsters.push(new Monster(newPos, newVel, 45, 20, monsterImages[0]));
   }
