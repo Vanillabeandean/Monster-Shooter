@@ -114,22 +114,26 @@ function drawMonsters(ctx) {
 // }
 
 function spawnMonsters() {
-  var randomNum = Round(Math.random()*2);
+  var randomNum = Math.round(Math.random() );
   var randomNumberXRight = (Math.random ()* 100) + 184;
   var randomNumberYRight = (Math.random ()* 100) + 20;
   var randomNumberXLeft = (Math.random ()* 100);
   var randomNumberYLeft = (Math.random ()* 100) + 20;
+if (randomNum ==1){
     if (Game.monsters.length == 0){ //check if == 1, ==2;
-  if (randomNum == 1){
       var newPos = new Vector(randomNumberXRight, randomNumberYRight);
       var newVel = new Vector(-.5, 0);
       Game.monsters.push(new Monster(newPos, newVel, 45, 20, monsterImages[0]));
+    }
   }
-  else{
+    if(randomNum == 0){
+      if (Game.monsters.length == 0){
+
     var newPos = new Vector(randomNumberXLeft, randomNumberYLeft);
     var newVel = new Vector(.5, 0);
     Game.monsters.push(new Monster(newPos, newVel, 45, 20, monsterImages[0]));
   }
+}
   //function that creates monsters randomly at certain times
 }
 
