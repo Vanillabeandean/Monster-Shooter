@@ -24,7 +24,7 @@ function keyboardInput() {
   }
 }
 
-function collision(thing, monster) {
+function collisionMonster(thing, monster) {
   var xOverlap = ((thing.position.x >= monster.position.x) && (thing.position.x <= monster.position.x + monster.width))
                 || ((thing.position.x + thing.width >= monster.position.x) && (thing.position.x + thing.width <= monster.position.x + monster.width));
   var yOverlap = ((thing.position.y >= monster.position.y) && (thing.position.y <= monster.position.y + monster.height))
@@ -32,9 +32,17 @@ function collision(thing, monster) {
   return xOverlap && yOverlap;
 }
 
+function collisionPlayer(thing, powerup) {
+  var xOverlap = ((thing.position.x >= powerup.position.x) && (thing.position.x <= powerup.position.x + powerup.width))
+                || ((thing.position.x + thing.width >= powerup.position.x) && (thing.position.x + thing.width <= powerup.position.x + powerup.width));
+  var yOverlap = ((thing.position.y >= powerup.position.y) && (thing.position.y <= powerup.position.y + powerup.height))
+                || ((thing.position.y + thing.height >= powerup.position.y) && (thing.position.y + thing.height <= powerup.position.y + powerup.height));
+  return xOverlap && yOverlap;
+}
+
 function playerCollisions() {
   for (var i = 0; i < Game.monsters.length; i++) {
-    if (collision(Player, Game.monsters[i])) {
+    if (collisionMonster(Player, Game.monsters[i])) {
       Game.monsters[i].active = false;
       Game.active = false;
     }
@@ -44,7 +52,7 @@ function playerCollisions() {
 function bulletCollisions() {
   for (var i = 0; i < Game.monsters.length; i++) {
     for (var j = 0; j < Game.bullets.length; j++) {
-      if (collision(Game.bullets[j], Game.monsters[i])) {
+      if (collisionMonster(Game.bullets[j], Game.monsters[i])) {
         Game.bullets[j].active = false;
         Game.monsters[i].active = false;
       }
@@ -83,37 +91,33 @@ function drawMonsters(ctx) {
     Game.monsters[i].draw(ctx);
   }
 }
-//
-// function bulletSpeedBoost(){
-//
-// }
-//
-// function playerSpeedBoost(){
-//   for (var i = 0; i < Game.powerup.length; i++) {
-//     if (collision(Player, Game.powerup[i])) {
-//       Game.powerup[i].active = false;
-//       Game.active = false;
-// }
-//
-// function spawnPowerUps (){
-//   var randomNumberX = (Math.random ()* 25) + 230;
-//   var randomNumberY = (Math.random ()* 112) + 10;
-//   var randomCorrect = (Round(Math.random () * 12000));
-//   for (var i = 0; i< Game.powerups.length)
-//       Game.powerup[i].draw(ctx)
-//   if (randomCorrect == 1){
-//
-//   }
-//   if (randomCorrect == 2){
-//     var c = document.getElementById("myCanvas");
-//     var ctx = c.getContext("2d");
-//       ctx.rect(20, 20, 150, 100);
-//     playerSpeedBoost() == true;
-//   }
-//
-// }
+
+function playerSpeedBoost(){
+  for (var i = 0; i < Game.powerup.length; i++) {
+    if (collisionPlayer(Player, Game.powerup[i])) {
+      Game.powerup[i].active = false;
+    }
+  }
+}
+
+function drawPowerUps(ctx) {
+  for (var i = 0; i < Game.monsters.length; i++) {
+    Game.powerUps[i].draw(ctx);
+  }
+}
+
+function spawnPowerUps (){
+  var randomNumberX = (Math.random ()* 25) + 230;
+  var randomNumberY = (Math.random ()* 112) + 10;
+  var randomCorrect = Math.round(Math.random () * 10);
+
+  if (randomCorrect == 2){
+    fillRect (50,50,50,50);
+  }
+}
+
 var speed = .3;
-//NEED TO FIGURE OUT HOW TO MAKE MONSTERS CONSISTENTLY SPAWN ON LEFT AND NOT JUST FOR THE FIRST TIME
+
 function spawnMonsters() {
   var randomNum = Math.round(Math.random() );
   var randomNumberXRight = (Math.random ()* 50) + 224;
@@ -132,7 +136,7 @@ if (randomNum ==1){
     }
   }
     if(randomNum == 0){
-      if (Game.monsters.length == 0){
+      if (Game.monsters.length == 0 || Game.monster.length == 1){
 
     var newPos = new Vector(randomNumberXLeft, randomNumberYLeft);
     var newVel = new Vector(speed, 0);
@@ -154,7 +158,7 @@ function main() {
   Game.context.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
   if (Game.active) {
     spawnMonsters();
-
+    spawnPowerUps ();
     keyboardInput();
 
     bulletCollisions();
@@ -167,6 +171,7 @@ function main() {
     Player.draw(Game.context);
     drawMonsters(Game.context);
     drawBullets(Game.context);
+    drawPowerUps(Game.context);
   }
   window.requestAnimationFrame(main);
 }
