@@ -2,7 +2,7 @@
 
 var Player = {
   image : playerImage,
-  position : new Vector(0,0),
+  position : new Vector(140,60),
   velocity : new Vector(0,0),
   scale : 1,
   width : 16,

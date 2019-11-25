@@ -2,16 +2,16 @@
 function keyboardInput() {
   if (keyPresses.KeyW) {
     Player.direction = up;
-    Player.velocity.set(0, -playerSpeed);
+    Player.velocity.set(0, 2* -playerSpeed);
   } else if (keyPresses.KeyS) {
     Player.direction = down;
-    Player.velocity.set(0, playerSpeed);
+    Player.velocity.set(0, 2* playerSpeed);
   } else if (keyPresses.KeyA) {
     Player.direction = left;
-    Player.velocity.set(-playerSpeed, 0);
+    Player.velocity.set(2*-playerSpeed, 0);
   } else if (keyPresses.KeyD) {
     Player.direction = right;
-    Player.velocity.set(playerSpeed, 0);
+    Player.velocity.set(2*playerSpeed, 0);
   } else {
     Player.velocity.set(0, 0);
   }
@@ -113,14 +113,15 @@ function drawMonsters(ctx) {
 //
 // }
 
+//NEED TO FIGURE OUT HOW TO MAKE MONSTERS CONSISTENTLY SPAWN ON LEFT AND NOT JUST FOR THE FIRST TIME
 function spawnMonsters() {
   var randomNum = Math.round(Math.random() );
-  var randomNumberXRight = (Math.random ()* 100) + 184;
+  var randomNumberXRight = (Math.random ()* 50) + 234;
   var randomNumberYRight = (Math.random ()* 100) + 20;
-  var randomNumberXLeft = (Math.random ()* 100);
+  var randomNumberXLeft = (Math.random ()* 50);
   var randomNumberYLeft = (Math.random ()* 100) + 20;
 if (randomNum ==1){
-    if (Game.monsters.length == 0){ //check if == 1, ==2;
+    if (Game.monsters.length == 0 || Game.monsters.length == 1){
       var newPos = new Vector(randomNumberXRight, randomNumberYRight);
       var newVel = new Vector(-.5, 0);
       Game.monsters.push(new Monster(newPos, newVel, 45, 20, monsterImages[0]));
