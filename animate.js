@@ -2,16 +2,16 @@
 function keyboardInput() {
   if (keyPresses.KeyW) {
     Player.direction = up;
-    Player.velocity.set(0, 2* -playerSpeed);
+    Player.velocity.set(0, double*2* -playerSpeed);
   } else if (keyPresses.KeyS) {
     Player.direction = down;
-    Player.velocity.set(0, 2* playerSpeed);
+    Player.velocity.set(0, double*2* playerSpeed);
   } else if (keyPresses.KeyA) {
     Player.direction = left;
-    Player.velocity.set(2*-playerSpeed, 0);
+    Player.velocity.set(double*2*-playerSpeed, 0);
   } else if (keyPresses.KeyD) {
     Player.direction = right;
-    Player.velocity.set(2*playerSpeed, 0);
+    Player.velocity.set(double*2*playerSpeed, 0);
   } else {
     Player.velocity.set(0, 0);
   }
@@ -91,18 +91,26 @@ function drawMonsters(ctx) {
     Game.monsters[i].draw(ctx);
   }
 }
+var double = 1;
 
-function playerSpeedBoost(){
-  for (var i = 0; i < Game.powerup.length; i++) {
-    if (collisionPlayer(Player, Game.powerup[i])) {
-      Game.powerup[i].active = false;
-    }
-  }
+// function playerSpeedBoost(){
+//   //if (monster doesn't collide with this)
+//     double = 1;
+//   }else{
+//     double = 2;
+//   }
+// }
+
+var speed = .3;
+
+function halfMonsterSpeed (){
+  speed = speed/2;
 }
 
+//??????
 function drawPowerUps(ctx) {
   for (var i = 0; i < Game.monsters.length; i++) {
-    Game.powerUps[i].draw(ctx);
+    Game.powerup[i].draw(ctx);
   }
 }
 
@@ -113,18 +121,21 @@ function spawnPowerUps (){
 
   if (randomCorrect == 2){
     fillRect (50,50,50,50);
+    //playerSpeedBoost()
+  }
+  if (randomCorrect == 1){
+    //halfMonsterSpeed
   }
 }
 
-var speed = .3;
 
 function spawnMonsters() {
   var randomNum = Math.round(Math.random() );
-  var randomNumberXRight = (Math.random ()* 50) + 224;
+  var randomNumberXRight = (Math.random ()* 30) + 244;
   var randomNumberYRight = (Math.random ()* 100) + 20;
-  var randomNumberXLeft = (Math.random ()* 50) + 10;
+  var randomNumberXLeft = (Math.random ()* 30) + 10;
   var randomNumberYLeft = (Math.random ()* 100) + 20;
-  var randomNumberEqualTo = Math.round(Math.random () * 150);
+  var randomNumberEqualTo = Math.round(Math.random () * 400);
 if (randomNumberEqualTo == 1){
   speed += .1;
 }
@@ -136,7 +147,7 @@ if (randomNum ==1){
     }
   }
     if(randomNum == 0){
-      if (Game.monsters.length == 0 || Game.monster.length == 1){
+      if (Game.monsters.length == 0 || Game.monsters.length == 1){
 
     var newPos = new Vector(randomNumberXLeft, randomNumberYLeft);
     var newVel = new Vector(speed, 0);
@@ -147,7 +158,7 @@ if (randomNum ==1){
 }
 var life = 5;
 function loseLife (){
-  if (Monster.position == 0 || Monster.position == Game.canvas.width)
+  if (Monster.position < 10 || Monster.position > Game.canvas.width -10)
     life = life - 1;
     if (life == 0){
       Game.active = false;
@@ -160,6 +171,7 @@ function main() {
     spawnMonsters();
     // spawnPowerUps ();
     keyboardInput();
+    loseLife();
 
     bulletCollisions();
     playerCollisions();
