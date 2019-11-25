@@ -83,17 +83,54 @@ function drawMonsters(ctx) {
     Game.monsters[i].draw(ctx);
   }
 }
+//
+// function bulletSpeedBoost(){
+//
+// }
+//
+// function playerSpeedBoost(){
+//   for (var i = 0; i < Game.powerup.length; i++) {
+//     if (collision(Player, Game.powerup[i])) {
+//       Game.powerup[i].active = false;
+//       Game.active = false;
+// }
+//
+// function spawnPowerUps (){
+//   var randomNumberX = (Math.random ()* 25) + 230;
+//   var randomNumberY = (Math.random ()* 112) + 10;
+//   var randomCorrect = (Round(Math.random () * 12000));
+//   for (var i = 0; i< Game.powerups.length)
+//       Game.powerup[i].draw(ctx)
+//   if (randomCorrect == 1){
+//
+//   }
+//   if (randomCorrect == 2){
+//     var c = document.getElementById("myCanvas");
+//     var ctx = c.getContext("2d");
+//       ctx.rect(20, 20, 150, 100);
+//     playerSpeedBoost() == true;
+//   }
+//
+// }
 
 function spawnMonsters() {
-  //function that creates monsters randomly at certain times
-  var randomNumberX = (Math.random ()* 184) + 100;
-  var randomNumberY = (Math.random ()* 100) + 20;
-
-  if (Game.monsters.length == 0) {
-    var newPos = new Vector(randomNumberX, randomNumberY);
-    var newVel = new Vector(-0.5, 0);
+  var randomNum = Round(Math.random()*2);
+  var randomNumberXRight = (Math.random ()* 100) + 184;
+  var randomNumberYRight = (Math.random ()* 100) + 20;
+  var randomNumberXLeft = (Math.random ()* 100);
+  var randomNumberYLeft = (Math.random ()* 100) + 20;
+    if (Game.monsters.length == 0){ //check if == 1, ==2;
+  if (randomNum == 1){
+      var newPos = new Vector(randomNumberXRight, randomNumberYRight);
+      var newVel = new Vector(-.5, 0);
+      Game.monsters.push(new Monster(newPos, newVel, 45, 20, monsterImages[0]));
+  }
+  else{
+    var newPos = new Vector(randomNumberXLeft, randomNumberYLeft);
+    var newVel = new Vector(.5, 0);
     Game.monsters.push(new Monster(newPos, newVel, 45, 20, monsterImages[0]));
   }
+  //function that creates monsters randomly at certain times
 }
 
 function main() {

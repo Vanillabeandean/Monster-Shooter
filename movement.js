@@ -9,7 +9,7 @@ const FACING_UP = 1;
 const FACING_LEFT = 2;
 const FACING_RIGHT = 3;
 const FRAME_LIMIT = 12;
-const MOVEMENT_SPEED = .5;
+var MOVEMENT_SPEED = .5;
 
 let canvas = document.querySelector('canvas');
 let ctx = canvas.getContext('2d');
@@ -56,7 +56,12 @@ function createMonster(){
 
 function moveMonster(){
   if (monster != false){
+    randomCorrect = (Round(Math.random () * 100));
     monster.x -= .5;
+    if (randomCorrect == 1){
+      monster.x -= 1;
+    }
+
   }
   if ((monster.x < positionX + 5) &&
   (monster.x > positionX -5) &&
