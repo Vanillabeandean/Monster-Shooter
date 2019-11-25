@@ -150,7 +150,7 @@ function loseLife (){
   if (Monster.position == 0 || Monster.position == Game.canvas.width)
     life = life - 1;
     if (life == 0){
-      //Game stop working
+      Game.active = false;
     }
 }
 
@@ -158,7 +158,7 @@ function main() {
   Game.context.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
   if (Game.active) {
     spawnMonsters();
-    spawnPowerUps ();
+    // spawnPowerUps ();
     keyboardInput();
 
     bulletCollisions();
@@ -171,7 +171,7 @@ function main() {
     Player.draw(Game.context);
     drawMonsters(Game.context);
     drawBullets(Game.context);
-    drawPowerUps(Game.context);
+    // drawPowerUps(Game.context);
   }
   window.requestAnimationFrame(main);
 }
