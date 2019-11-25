@@ -112,18 +112,22 @@ function drawMonsters(ctx) {
 //   }
 //
 // }
-
+var speed = .3;
 //NEED TO FIGURE OUT HOW TO MAKE MONSTERS CONSISTENTLY SPAWN ON LEFT AND NOT JUST FOR THE FIRST TIME
 function spawnMonsters() {
   var randomNum = Math.round(Math.random() );
-  var randomNumberXRight = (Math.random ()* 50) + 234;
+  var randomNumberXRight = (Math.random ()* 50) + 224;
   var randomNumberYRight = (Math.random ()* 100) + 20;
-  var randomNumberXLeft = (Math.random ()* 50);
+  var randomNumberXLeft = (Math.random ()* 50) + 10;
   var randomNumberYLeft = (Math.random ()* 100) + 20;
+  var randomNumberEqualTo = Math.round(Math.random () * 150);
+if (randomNumberEqualTo == 1){
+  speed += .1;
+}
 if (randomNum ==1){
     if (Game.monsters.length == 0 || Game.monsters.length == 1){
       var newPos = new Vector(randomNumberXRight, randomNumberYRight);
-      var newVel = new Vector(-.5, 0);
+      var newVel = new Vector(-speed, 0);
       Game.monsters.push(new Monster(newPos, newVel, 45, 20, monsterImages[0]));
     }
   }
@@ -131,11 +135,19 @@ if (randomNum ==1){
       if (Game.monsters.length == 0){
 
     var newPos = new Vector(randomNumberXLeft, randomNumberYLeft);
-    var newVel = new Vector(.5, 0);
+    var newVel = new Vector(speed, 0);
     Game.monsters.push(new Monster(newPos, newVel, 45, 20, monsterImages[0]));
   }
 }
   //function that creates monsters randomly at certain times
+}
+var life = 5;
+function loseLife (){
+  if (Monster.position == 0 || Monster.position == Game.canvas.width)
+    life = life - 1;
+    if (life == 0){
+      //Game stop working
+    }
 }
 
 function main() {
