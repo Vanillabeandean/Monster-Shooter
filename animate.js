@@ -191,6 +191,10 @@ function main() {
     drawMonsters(Game.context);
     drawBullets(Game.context);
     // drawPowerUps(Game.context);
+//     var canvas = document.getElementById("myCanvas");
+// var ctx = canvas.getContext("2d");
+// ctx.font = "30px Arial";
+// ctx.fillText("Life: " + life, 10, 50);
   }
   window.requestAnimationFrame(main);
 }
