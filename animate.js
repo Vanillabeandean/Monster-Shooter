@@ -49,12 +49,16 @@ function playerCollisions() {
   }
 }
 
+var life = 5;
+
+
 function bulletCollisions() {
   for (var i = 0; i < Game.monsters.length; i++) {
     for (var j = 0; j < Game.bullets.length; j++) {
       if (collisionMonster(Game.bullets[j], Game.monsters[i])) {
         Game.bullets[j].active = false;
         Game.monsters[i].active = false;
+        life+=1;
       }
     }
   }
@@ -70,14 +74,18 @@ function updateBullets() {
   }
 }
 
+
+//split up monster removed and bullet contact
 function updateMonsters() {
   for (var i = 0; i < Game.monsters.length; i++) {
     if (Game.monsters[i].active) {
       Game.monsters[i].update();
-    } else {
+    } else if (Game.monsters[i].inBounds){
       removeElement(Game.monsters, i);
+      life -=1;
     }
   }
+
 }
 
 function drawBullets(ctx) {
@@ -156,7 +164,6 @@ if (randomNum ==1){
 }
   //function that creates monsters randomly at certain times
 }
-var life = 5;
 function loseLife (){
   if (Monster.position < 10 || Monster.position > Game.canvas.width -10)
     life = life - 1;
